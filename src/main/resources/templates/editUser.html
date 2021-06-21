@@ -13,7 +13,7 @@
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="/">Navbar</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -22,7 +22,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
                 </ul>
             </div>
@@ -30,7 +30,7 @@
     </nav>
 
 
-    <form th:action="@{/update/{id}(id=${user.id})}" th:object="${user}" method="post" class="form">
+    <form th:action="@{/update/job/{id}(id=${user.id})}" th:object="${user}" method="post" class="form">
         <div class="form-group d-grid gap-2 p-3 bg-light border">
             <label for="firstName">First name *</label>
             <input class="form-control" type="text" th:field="*{firstName}" id="firstName" placeholder="firstName">
@@ -51,11 +51,71 @@
             <input class="form-control" type="text" th:field="*{email}" id="email" placeholder="email">
             <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
         </div>
+        <div class="form-group d-grid gap-2 p-3 bg-light border">
+            <label for="age">Phone number *</label>
+            <input class="form-control" type="text" th:field="*{phoneNumber}" id="phoneNumber"
+                   placeholder="phoneNumber">
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('phoneNumber')}"
+                 th:errors="*{phoneNumber}"></div>
+        </div>
+        <div class="form-group d-grid gap-2 p-3 bg-light border">
+            <label for="age">Address *</label>
+<!--            <div th:if="${user.address!=null}">-->
+<!--                <div>HAVE ADDRESS</div>-->
+
+<!--            </div>-->
+            <!-- ELSE -->
+<!--            <div th:unless="${user.address}">-->
+
+                <input class="form-control" type="text" th:field="*{address.country}" id="country" placeholder="country">
+                <div class="alert alert-warning" th:if="${#fields.hasErrors('address.country')}" th:errors="*{address.country}"></div>
+                <input class="form-control" type="text" th:field="*{address.city}" id="city" placeholder="city">
+                <div class="alert alert-warning" th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}"></div>
+                <input class="form-control" type="text" th:field="*{address.street}" id="street" placeholder="street">
+                <div class="alert alert-warning" th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}"></div>
+                <input class="form-control" type="number" th:field="*{address.homeNumber}" id="homeNumber" placeholder="homeNumber">
+                <div class="alert alert-warning" th:if="${#fields.hasErrors('address.homeNumber')}" th:errors="*{address.homeNumber}"></div>
+<!--            </div>-->
+        </div>
+        <div class="form-group d-grid gap-2 p-3 bg-light border">
+            <label for="age">Jobs *</label>
+            <div th:if="${user.jobs}">
+                <div>HAVE JOBS</div>
+            </div>
+            <!-- ELSE -->
+            <div th:unless="${user.jobs}">
+                <div>No jobs</div>
+            </div>
+        </div>
+        <div class="form-group d-grid gap-2 p-3 bg-light border">
+            <label for="age">Passport *</label>
+            <div th:if="${user.passport}">
+                <div>HAVE PASSPORT</div>
+            </div>
+            <!-- ELSE -->
+            <div th:unless="${user.passport}">
+                <div>No passport</div>
+            </div>
+        </div>
         <div class="form-group gap-3 p-2 bg-light border">
-            <button class="btn btn-primary" type="submit">Add user</button>
+            <button class="btn btn-primary" type="submit">Edit user</button>
             <a th:href="@{/}" class="btn btn-secondary" role="button">Cancel</a>
         </div>
     </form>
+<!--    <div class="form-group d-grid gap-2 p-3 bg-light border">-->
+<!--        <form th:action="@{/update/job/{id}(id=${user.id})}" th:object="${user}" method="post" class="form">-->
+<!--            <input class="form-control" type="text" th:field="*{address.country}" id="address.country" placeholder="country">-->
+<!--            <div class="alert alert-warning" th:if="${#fields.hasErrors('address.country')}" th:errors="*{address.country}"></div>-->
+<!--            <input class="form-control" type="text" th:field="*{address.city}" id="address.city" placeholder="city">-->
+<!--            <div class="alert alert-warning" th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}"></div>-->
+<!--            <input class="form-control" type="text" th:field="*{address.street}" id="address.street" placeholder="street">-->
+<!--            <div class="alert alert-warning" th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}"></div>-->
+<!--            <input class="form-control" type="number" th:field="*{address.homeNumber}" id="address.homeNumber" placeholder="homeNumber">-->
+<!--            <div class="alert alert-warning" th:if="${#fields.hasErrors('address.homeNumber')}" th:errors="*{address.homeNumber}"></div>-->
+<!--            <button class="btn btn-primary" type="submit"  >Add address</button>-->
+<!--        </form>-->
+
+<!--    </div>-->
 </div>
 </body>
 

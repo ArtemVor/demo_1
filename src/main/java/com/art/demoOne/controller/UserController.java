@@ -1,24 +1,26 @@
-package com.art.demo_1.controller;
+package com.art.demoOne.controller;
 
-import com.art.demo_1.model.MyUser;
-import com.art.demo_1.service.UserService;
+import com.art.demoOne.model.Address;
+import com.art.demoOne.model.MyUser;
+import com.art.demoOne.service.address.AddressService;
+import com.art.demoOne.service.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
 public class UserController {
 
-
     private final UserService userService;
+    private final AddressService addressService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AddressService addressService) {
         this.userService = userService;
+        this.addressService = addressService;
     }
 
     @GetMapping("/")
@@ -34,7 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/add-user")
-    public String addUser(@Validated @ModelAttribute("user") MyUser user, BindingResult result, Model model) {
+    public String addUser(@Validated @ModelAttribute("user") MyUser user, BindingResult result) {
         if (result.hasErrors()) {
             return "addUser";
         } else {
@@ -61,11 +63,22 @@ public class UserController {
     }
 
     @PostMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Long id, Model model) {
+    public String delete(@PathVariable("id") Long id) {
         userService.delete(id);
-//        model.addAttribute("users",userService.findAll());
-//
         return "redirect:/";
+    }
+
+    @PostMapping("/update/job/{id}")
+    public String updateJob(@PathVariable("id") Long id, @Validated @ModelAttribute("user") MyUser user,  BindingResult result) {
+        if (result.hasErrors()) {
+            return "editUser";
+        } else {
+            Address address = user.getAddress();
+            addressService.save(address);
+            user.setAddress(address);
+            userService.save(user);
+            return "editUser";
+        }
     }
 
 

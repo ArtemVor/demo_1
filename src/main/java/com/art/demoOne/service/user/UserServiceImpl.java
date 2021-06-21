@@ -1,7 +1,7 @@
-package com.art.demo_1.service;
+package com.art.demoOne.service.user;
 
-import com.art.demo_1.model.MyUser;
-import com.art.demo_1.repository.UserRepository;
+import com.art.demoOne.model.MyUser;
+import com.art.demoOne.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
